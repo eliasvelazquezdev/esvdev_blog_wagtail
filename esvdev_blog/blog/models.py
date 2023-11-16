@@ -15,6 +15,9 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
+from wagtail.api import APIField
+
+from rest_framework.fields import DateField
 
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
@@ -22,6 +25,8 @@ class BlogPageTag(TaggedItemBase):
         related_name='tagged_items',
         on_delete=models.CASCADE
     )
+
+
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
@@ -34,6 +39,10 @@ class BlogIndexPage(Page):
         blogpages = self.get_children().live().order_by('-first_published_at')
         context['blogpages'] = blogpages
         return context
+
+    api_fields = [
+        APIField('intro')
+    ]
 
 class BlogTagIndexPage(Page):
     def get_context(self, request):
@@ -74,6 +83,13 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
+    api_fields = [
+        APIField('date', serializer=DateField(format='%a %d %b %Y')),
+        APIField('body'),
+        APIField('authors'),
+        APIField('tags'),
+    ]
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('date'),
@@ -107,6 +123,10 @@ class Author(models.Model):
     panels = [
         FieldPanel('name'),
         FieldPanel('author_image'),
+    ]
+
+    api_fields = [
+        APIField('name'),
     ]
 
     def __str__(self):
