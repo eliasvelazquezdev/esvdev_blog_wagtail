@@ -10,6 +10,7 @@ from wagtail.models import Page, Orderable
 from wagtail.snippets.models import register_snippet
 from wagtail.fields import RichTextField, StreamField
 from wagtail import blocks
+from wagtail.images import get_image_model_string
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -86,7 +87,7 @@ class BlogPage(Page):
 
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
-    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
+    image = models.ForeignKey(get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     caption = models.CharField(max_length=250, blank=True)
 
     panels = [

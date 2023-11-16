@@ -55,7 +55,10 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "cloudinary_storage",
     "django.contrib.staticfiles",
+    "cloudinary",
+    "wagtail_cloudinary_image",
 ]
 
 MIDDLEWARE = [
@@ -175,3 +178,13 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
+
+WAGTAILIMAGES_IMAGE_MODEL = "wagtail_cloudinary_image.CloudinaryImage"
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUD_NAME'),  # required
+    'API_KEY': env('API_KEY'),  # required
+    'API_SECRET': env('API_SECRET'),  # required
+   
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
