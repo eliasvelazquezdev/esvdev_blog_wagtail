@@ -2,8 +2,15 @@
 import os
 import sys
 
+import environ
+
+env = environ.Env()
+
+# Take environment variables from .env file
+environ.Env.read_env('.env')
+
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "esvdev_blog.settings.dev")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", env("DJANGO_SETTINGS_MODULE"))
 
     from django.core.management import execute_from_command_line
 
