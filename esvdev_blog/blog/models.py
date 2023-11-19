@@ -11,11 +11,12 @@ from wagtail.snippets.models import register_snippet
 from wagtail.fields import RichTextField, StreamField
 from wagtail import blocks
 from wagtail.images import get_image_model_string
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
 from wagtail.api import APIField
+
+from .custom import ImageChooserBlock
 
 from rest_framework.fields import DateField
 
@@ -76,7 +77,6 @@ class BlogPage(Page):
             return gallery_item.image
         else:
             return None
-
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
