@@ -8,6 +8,9 @@ class BlogPostAPIViewSet(PagesAPIViewSet):
     renderer_classes = [JSONRenderer]
     model = BlogPage
     name = "posts"
+    
+    def get_queryset(self):
+        return self.model.objects.live().order_by('-first_published_at')
 
 class TagPostAPIViewSet(PagesAPIViewSet):
     renderer_classes = [JSONRenderer]

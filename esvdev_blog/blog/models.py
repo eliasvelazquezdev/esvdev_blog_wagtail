@@ -41,9 +41,6 @@ class BlogIndexPage(Page):
         context['blogpages'] = blogpages
         return context
 
-    api_fields = [
-        APIField('intro')
-    ]
 
 class BlogTagIndexPage(Page):
     def get_context(self, request):
@@ -67,6 +64,7 @@ class BlogPage(Page):
     ], use_json_field=True)
     authors = ParentalManyToManyField('blog.Author', blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+    featured = models.BooleanField(default=False)
 
     def main_image(self):
         """
@@ -88,6 +86,7 @@ class BlogPage(Page):
         APIField('body'),
         APIField('authors'),
         APIField('tags'),
+        APIField('featured'),
     ]
 
     content_panels = Page.content_panels + [
@@ -98,6 +97,7 @@ class BlogPage(Page):
         FieldPanel('tags'),
         FieldPanel('intro'),
         FieldPanel('body'),
+        FieldPanel('featured'),
         InlinePanel('gallery_images', label="Gallery images")
     ]
 
