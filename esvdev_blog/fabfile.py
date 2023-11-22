@@ -12,11 +12,8 @@ env.hosts = ['24.199.124.168']
 def deploy():
     with cd('/home/esvdev/projects/blog_wagtail/esvdev_blog_wagtail/esvdev_blog'):
         run('git pull')
-        run('pipenv shell')
+        run('pipenv run pip install -r requirements.txt')
+        run('pipenv run python manage.py migrate')
 
-        with cd('/home/esvdev/projects/blog_wagtail/esvdev_blog_wagtail/esvdev_blog'):
-            run('pip install -r requirements.txt')
-            run('python manage.py migrate')
-
-        sudo('systemctl restart blog')
-        sudo('systemctl restart nginx')
+    sudo('systemctl restart blog')
+    sudo('systemctl restart nginx')
