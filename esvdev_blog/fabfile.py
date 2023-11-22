@@ -4,6 +4,7 @@ from fabric.api import env
 from fabric.api import prefix
 from fabric.api import sudo
 from fabric.api import run
+from fabric.api import get
 
 env.user = 'esvdev'
 env.hosts = ['24.199.124.168']
@@ -17,3 +18,14 @@ def deploy():
 
     sudo('systemctl restart blog')
     sudo('systemctl restart nginx')
+
+@task(alias='get-log')
+def download_error_log():
+    sudo ('tail -n 20 /var/log/nginx/error.log.1 > tmp.log')
+
+    get(
+        local_path="/home/esvdev/Programacion/Python/Proyectos/Blog/blog_wagtail/error_log.log",
+        remote_path="/home/esvdev/tmp.log"
+    )
+
+    sudo ('rm tmp.log')

@@ -91,6 +91,8 @@ class BlogPage(Page):
 
     api_fields = [
         APIField('date', serializer=DateField(format='%a %d %b %Y')),
+        APIField('intro'),
+        APIField('first_published_at', serializer=DateTimeField(format='%a %d %b %Y')),
         APIField('latest_revision_created_at', serializer=DateTimeField(format='%a %d %b %Y')),
         APIField('body'),
         APIField('authors', serializer=serializers.StringRelatedField(many=True)),
