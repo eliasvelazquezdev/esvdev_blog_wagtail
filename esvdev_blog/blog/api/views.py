@@ -1,12 +1,20 @@
 from wagtail.api.v2.views import PagesAPIViewSet, BaseAPIViewSet
 from wagtail.images.api.v2.views import ImagesAPIViewSet
 from rest_framework.renderers import JSONRenderer
+from .pagination import BlogPostsPagination
 
 
 from blog.models import BlogPage, Tag
 
 class BlogPostAPIViewSet(PagesAPIViewSet):
     renderer_classes = [JSONRenderer]
+    pagination_class = BlogPostsPagination
+    # Add 'page' to know query parameters to make PageNumberPagination work
+    known_query_parameters = BaseAPIViewSet.known_query_parameters.union(
+        [
+            "page",
+        ]
+    )
     model = BlogPage
     name = "posts"
     
