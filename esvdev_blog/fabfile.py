@@ -9,7 +9,7 @@ from fabric.api import get
 env.user = 'esvdev'
 env.hosts = ['24.199.124.168']
 
-
+@task(alias="deploy")
 def deploy():
     with cd('/home/esvdev/projects/blog_wagtail/esvdev_blog_wagtail/esvdev_blog'):
         run('git pull')
