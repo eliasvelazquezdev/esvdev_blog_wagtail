@@ -64,6 +64,7 @@ class BlogPage(Page):
     intro = RichTextField(blank=True)
     body = StreamField([
         ('heading', blocks.CharBlock(form_classname="title")),
+        ('subtitle', blocks.CharBlock(form_classname="subtitle", required=False)),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(required=False)),
         ('quote', blocks.BlockQuoteBlock(required=False)),
