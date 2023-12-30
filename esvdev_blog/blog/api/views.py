@@ -1,4 +1,5 @@
 from wagtail.api.v2.views import PagesAPIViewSet, BaseAPIViewSet
+from wagtail.api.v2.filters import FieldsFilter
 from wagtail.images.api.v2.views import ImagesAPIViewSet
 from rest_framework.renderers import JSONRenderer
 
@@ -19,7 +20,11 @@ class TagPostAPIViewSet(BaseAPIViewSet):
     renderer_classes = [JSONRenderer]
     model = Tag
     name = "tags"
-
+    
+    filter_backends = [
+        FieldsFilter, # needs to be last, as SearchResults querysets cannot be filtered further
+    ]
+    
     body_fields = BaseAPIViewSet.body_fields + [
         'name',
     ]
@@ -28,8 +33,12 @@ class TagPostAPIViewSet(BaseAPIViewSet):
         'name',
     ]
 
+    known_query_parameters = BaseAPIViewSet.known_query_parameters.union(
 
-
+        [
+            "name",
+        ]
+    )
 
 
 class PostImagesAPIViewSet(ImagesAPIViewSet):
