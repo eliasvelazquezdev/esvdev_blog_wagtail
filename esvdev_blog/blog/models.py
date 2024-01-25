@@ -92,7 +92,7 @@ class BlogPage(Page):
     ]
 
     api_fields = [
-        APIField('date', serializer=DateField(format='%a %d %b %Y')),
+        APIField('date', serializer=DateField(format='%d/%m/%y')),
         APIField('intro'),
         APIField('programming_language'),
         APIField('first_published_at', serializer=DateTimeField(format=f'%d/%m/%y')),
