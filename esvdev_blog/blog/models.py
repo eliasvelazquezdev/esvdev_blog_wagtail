@@ -69,7 +69,7 @@ class BlogPage(Page):
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock(required=False)),
         ('quote', blocks.BlockQuoteBlock(required=False)),
-        ('video', EmbedBlock(required=False)),
+        ('video', blocks.URLBlock(required=False, default=None)),
         ('code_snippet', blocks.TextBlock(form_classname="Code Snippet", required=False, help_text="Snippet with code"))
     ], use_json_field=True)
     authors = ParentalManyToManyField('blog.Author', blank=True)
