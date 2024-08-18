@@ -24,7 +24,7 @@ def download_error_log():
     sudo ('tail -n 20 /var/log/nginx/error.log.1 > tmp.log')
 
     get(
-        local_path="/home/esvdev/Programacion/Python/Proyectos/Blog/blog_wagtail/error_log.log",
+        local_path="/home/esvdev/Programacion/Python/Logs/blog_wagtail_error_log.log",
         remote_path="/home/esvdev/tmp.log"
     )
 
